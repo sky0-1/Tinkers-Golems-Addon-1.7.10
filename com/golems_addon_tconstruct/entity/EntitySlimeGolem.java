@@ -1,8 +1,10 @@
 package com.golems_addon_tconstruct.entity;
 
+import java.util.List;
+
 import com.golems.entity.GolemBase;
 import com.golems.entity.GolemMultiTextured;
-import com.golems_addon_tconstruct.main.TCGConfig;
+import com.golems_addon_tconstruct.main.TinkersConfig;
 import com.golems_addon_tconstruct.main.TinkersGolems;
 
 import net.minecraft.block.Block;
@@ -12,6 +14,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 
 public class EntitySlimeGolem extends GolemMultiTextured
@@ -31,9 +34,9 @@ public class EntitySlimeGolem extends GolemMultiTextured
 	{
 		if(super.attackEntityAsMob(entity))
 		{
-			if(TCGConfig.ALLOW_SLIME_SPECIAL)
+			if(TinkersConfig.ALLOW_SLIME_SPECIAL)
 			{
-				knockbackTarget(entity, TCGConfig.TWEAK_SLIME);
+				knockbackTarget(entity, TinkersConfig.TWEAK_SLIME);
 			}
 			return true;
 		}
@@ -46,9 +49,9 @@ public class EntitySlimeGolem extends GolemMultiTextured
 		if (!this.isEntityInvulnerable())
 		{
 			super.damageEntity(source, amount);
-			if(source.getEntity() != null && TCGConfig.ALLOW_SLIME_SPECIAL)
+			if(source.getEntity() != null && TinkersConfig.ALLOW_SLIME_SPECIAL)
 			{
-				knockbackTarget(source.getEntity(), TCGConfig.TWEAK_SLIME * 3 / 5);
+				knockbackTarget(source.getEntity(), TinkersConfig.TWEAK_SLIME * 3 / 5);
 			}
 		}
 	}
@@ -62,19 +65,20 @@ public class EntitySlimeGolem extends GolemMultiTextured
 	}
 	
 	@Override
-	protected void applyEntityAttributes() 
+	protected void applyAttributes() 
 	{
-		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.18D);
 		this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(0.5D);
 	}
 
 	@Override
-	public ItemStack getGolemDrops() 
+	public void addGolemDrops(List<WeightedRandomChestContent> dropList, boolean recentlyHit, int lootingLevel)
 	{
-		int size = 6 + rand.nextInt(8);
-		return new ItemStack(Items.slime_ball, size);
+		for(int i = 0; i < 3; i++)
+		{
+			GolemBase.addGuaranteedDropEntry(dropList, new ItemStack(Items.slime_ball, 4 + rand.nextInt(8)));
+		}
 	}
 
 	@Override

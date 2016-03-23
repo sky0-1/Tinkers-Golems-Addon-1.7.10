@@ -12,7 +12,7 @@ import com.golems_addon_tconstruct.entity.EntityCopperGolem;
 import com.golems_addon_tconstruct.entity.EntityEnderGolem;
 import com.golems_addon_tconstruct.entity.EntityGlueGolem;
 import com.golems_addon_tconstruct.entity.EntityHamGolem;
-import com.golems_addon_tconstruct.entity.EntityManyullyumGolem;
+import com.golems_addon_tconstruct.entity.EntityManyullynGolem;
 import com.golems_addon_tconstruct.entity.EntitySearedGolem;
 import com.golems_addon_tconstruct.entity.EntitySlimeGolem;
 import com.golems_addon_tconstruct.entity.EntitySteelGolem;
@@ -38,7 +38,7 @@ public class ClientProxy extends CommonProxy
 		register(EntityEnderGolem.class);
 		register(EntityGlueGolem.class);
 		register(EntityHamGolem.class);
-		register(EntityManyullyumGolem.class);
+		register(EntityManyullynGolem.class);
 		register(EntitySearedGolem.class);
 		register(EntitySlimeGolem.class);
 		register(EntitySteelGolem.class);

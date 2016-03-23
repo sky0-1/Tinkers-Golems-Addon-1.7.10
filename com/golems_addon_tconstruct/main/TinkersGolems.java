@@ -18,7 +18,7 @@ public class TinkersGolems
 	public static final String MODID = "golems_addon_tconstruct";
 	public static final String DEPENDENCY_MODID = "golems";
 	public static final String NAME = "Tinkers' Golems Addon";
-	public static final String VERSION = "1.07";
+	public static final String VERSION = "1.08";
 	public static final String MCVERSION = "1.7.10";
 	public static final String CLIENT = "com." + MODID + ".proxies.ClientProxy";
 	public static final String SERVER = "com." + MODID + ".proxies.CommonProxy";
@@ -32,7 +32,7 @@ public class TinkersGolems
 	@EventHandler
 	public static void preInit(FMLPreInitializationEvent event) 
 	{	
-		TCGConfig.mainRegistry(new Configuration(event.getSuggestedConfigurationFile()));
+		TinkersConfig.mainRegistry(new Configuration(event.getSuggestedConfigurationFile()));
 		TCGGolemEntityRegister.mainRegistry();
 		proxy.registerRenders();
 	}

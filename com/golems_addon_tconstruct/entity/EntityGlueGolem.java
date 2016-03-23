@@ -5,16 +5,18 @@ import java.util.List;
 
 import com.golems.entity.GolemBase;
 import com.golems.entity.GolemLightProvider;
-import com.golems_addon_tconstruct.main.TCGConfig;
+import com.golems_addon_tconstruct.main.TinkersConfig;
 import com.golems_addon_tconstruct.main.TinkersGolems;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -26,9 +28,8 @@ public class EntityGlueGolem extends GolemBase
 	}
 
 	@Override
-	protected void entityInit()
+	protected void applyTexture()
 	{
-		super.entityInit();
 		this.setTextureType(this.getGolemTexture(TinkersGolems.MODID, "glue"));
 	}
 	
@@ -47,7 +48,7 @@ public class EntityGlueGolem extends GolemBase
 	public void onLivingUpdate()
 	{
 		super.onLivingUpdate();
-		final double EXPAND = TCGConfig.TWEAK_GLUE;
+		final double EXPAND = TinkersConfig.TWEAK_GLUE;
 		List<Entity> entityList = worldObj.getEntitiesWithinAABB(Entity.class, this.boundingBox.expand(EXPAND, 1.3D, EXPAND));
 		for (int i = 0, j = entityList.size(); i < j; ++i)
 		{
@@ -57,7 +58,7 @@ public class EntityGlueGolem extends GolemBase
 
 	private void glueTarget(Entity entity)
 	{
-		if(TCGConfig.ALLOW_GLUE_SPECIAL)
+		if(TinkersConfig.ALLOW_GLUE_SPECIAL)
 		{
 			entity.motionX /= 2;
 			entity.motionZ /= 2;
@@ -73,25 +74,27 @@ public class EntityGlueGolem extends GolemBase
 	}
 
 	@Override
-	protected void applyEntityAttributes() 
+	protected void applyAttributes() 
 	{
-		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(35.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.14D);
 	}
 
 	@Override
-	public ItemStack getGolemDrops() 
+	public void addGolemDrops(List<WeightedRandomChestContent> dropList, boolean recentlyHit, int lootingLevel)
 	{
-		int size = 6 + rand.nextInt(8);
-		ArrayList<ItemStack> list = OreDictionary.getOres("glueball");
+		int size = 4 + rand.nextInt(8);
+		List<ItemStack> list = OreDictionary.getOres("glueball");
 		if(!list.isEmpty()) 
 		{
-			ItemStack ret = list.get(0);
-			ret.stackSize = size;
-			return ret;
+			ItemStack stack = list.get(0);
+			stack.stackSize = size;
+			for(int i = 0; i < 2; i++)
+			{
+				GolemBase.addGuaranteedDropEntry(dropList, stack);
+			}
 		}
-		else return null;
+		GolemBase.addDropEntry(dropList, Items.slime_ball, 0, 1, 10, 35 + (list.isEmpty() ? 50 : lootingLevel * 2));
 	}
 
 	@Override

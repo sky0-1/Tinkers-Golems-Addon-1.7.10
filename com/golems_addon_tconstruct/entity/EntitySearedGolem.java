@@ -1,15 +1,17 @@
 package com.golems_addon_tconstruct.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.golems.entity.GolemBase;
-import com.golems_addon_tconstruct.main.TCGConfig;
+import com.golems_addon_tconstruct.main.TinkersConfig;
 import com.golems_addon_tconstruct.main.TinkersGolems;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -22,9 +24,8 @@ public class EntitySearedGolem extends GolemBase
 	}
 
 	@Override
-	protected void entityInit()
+	protected void applyTexture()
 	{
-		super.entityInit();
 		this.setTextureType(this.getGolemTexture(TinkersGolems.MODID, "seared"));
 	}
 	
@@ -34,7 +35,7 @@ public class EntitySearedGolem extends GolemBase
 	{
 		if(super.attackEntityAsMob(entity))
 		{
-			if(TCGConfig.ALLOW_SEARED_SPECIAL)
+			if(TinkersConfig.ALLOW_SEARED_SPECIAL)
 			{
 				entity.setFire(1 + rand.nextInt(2));
 			}
@@ -44,25 +45,23 @@ public class EntitySearedGolem extends GolemBase
 	}
 	
 	@Override
-	protected void applyEntityAttributes() 
+	protected void applyAttributes() 
 	{
-		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(55.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.22D);
 	}
 
 	@Override
-	public ItemStack getGolemDrops() 
+	public void addGolemDrops(List<WeightedRandomChestContent> dropList, boolean recentlyHit, int lootingLevel)
 	{
 		int size = 6 + rand.nextInt(8);
-		ArrayList<ItemStack> list = OreDictionary.getOres("ingotSeared");
+		List<ItemStack> list = OreDictionary.doesOreNameExist("ingotSeared") ? OreDictionary.getOres("ingotSeared") : OreDictionary.getOres("brickSeared");
 		if(!list.isEmpty()) 
 		{
-			ItemStack ret = list.get(0);
-			ret.stackSize = size;
-			return ret;
+			ItemStack stack = list.get(0);
+			stack.stackSize = size;
+			GolemBase.addGuaranteedDropEntry(dropList, stack);
 		}
-		else return null;
 	}
 
 	@Override

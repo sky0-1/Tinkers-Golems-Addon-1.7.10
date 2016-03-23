@@ -22,7 +22,7 @@ public class TCGGolemEntityRegister
 		register(EntityEnderGolem.class, "golem_ender");
 		register(EntityGlueGolem.class, "golem_glue");
 		register(EntityHamGolem.class, "golem_hambone");
-		register(EntityManyullyumGolem.class, "golem_manyullyum");
+		register(EntityManyullynGolem.class, "golem_manyullyn");
 		register(EntitySearedGolem.class, "golem_seared");
 		register(EntitySlimeGolem.class, "golem_slime");
 		register(EntitySteelGolem.class, "golem_steel");

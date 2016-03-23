@@ -1,6 +1,7 @@
 package com.golems_addon_tconstruct.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.golems.entity.GolemBase;
 import com.golems_addon_tconstruct.main.TinkersGolems;
@@ -8,44 +9,43 @@ import com.golems_addon_tconstruct.main.TinkersGolems;
 import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class EntityManyullyumGolem extends GolemBase
+public class EntityManyullynGolem extends GolemBase
 {
-	public EntityManyullyumGolem(World world) 
+	public EntityManyullynGolem(World world) 
 	{
 		super(world, 12.0F);
 		this.isImmuneToFire = true;
 	}
 
 	@Override
-	protected void entityInit()
+	protected void applyTexture()
 	{
-		super.entityInit();
 		this.setTextureType(this.getGolemTexture(TinkersGolems.MODID, "manyullyum"));
 	}
 	
 	@Override
-	protected void applyEntityAttributes() 
+	protected void applyAttributes() 
 	{
-		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(240.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.28D);
 	}
 
 	@Override
-	public ItemStack getGolemDrops() 
+	public void addGolemDrops(List<WeightedRandomChestContent> dropList, boolean recentlyHit, int lootingLevel)
 	{
 		int size = 6 + rand.nextInt(8);
-		ArrayList<ItemStack> list = OreDictionary.getOres("ingotManyullyum");
+		List<ItemStack> list = OreDictionary.getOres("ingotManyullyn");
 		if(!list.isEmpty()) 
 		{
-			ItemStack ret = list.get(0);
-			ret.stackSize = size;
-			return ret;
+			ItemStack stack = list.get(0);
+			stack.stackSize = size;
+			GolemBase.addGuaranteedDropEntry(dropList, stack);
+			
 		}
-		else return null;
 	}
 
 	@Override

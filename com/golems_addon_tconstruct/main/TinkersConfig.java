@@ -3,7 +3,7 @@ package com.golems_addon_tconstruct.main;
 import net.minecraftforge.common.config.Configuration;
 
 /** Registers the config settings to adjust aspects of this mod **/
-public class TCGConfig 
+public class TinkersConfig 
 {
 	public static boolean ALLOW_ALUMINUM;
 	public static boolean ALLOW_ALUMINUM_BRASS;
@@ -22,6 +22,7 @@ public class TCGConfig
 	public static boolean ALLOW_STEEL;
 	public static boolean ALLOW_TIN;
 	
+	public static boolean ALLOW_ENDER_SPECIAL;
 	public static boolean ALLOW_SLIME_SPECIAL;
 	public static boolean ALLOW_SEARED_SPECIAL;
 	public static boolean ALLOW_GLUE_SPECIAL;
@@ -61,8 +62,8 @@ public class TCGConfig
 				"Whether the HamBone Golem can be constructed.");
 		ALLOW_SLIME = config.getBoolean("Allow Slime Golem", CATEGORY_SPAWNS, true, 
 				"Whether the Congealed Slime Golem can be constructed.");
-		ALLOW_MANYULLYUM = config.getBoolean("Allow Manyullyum Golem", CATEGORY_SPAWNS, true, 
-				"Whether the Manyullyum Golem can be constructed.");
+		ALLOW_MANYULLYUM = config.getBoolean("Allow Manyullyn Golem", CATEGORY_SPAWNS, true, 
+				"Whether the Manyullyn Golem can be constructed.");
 		ALLOW_SEARED = config.getBoolean("Allow Seared Golem", CATEGORY_SPAWNS, true, 
 				"Whether the Seared Brick Golem can be constructed.");
 		ALLOW_STEEL = config.getBoolean("Allow Steel Golem", CATEGORY_SPAWNS, true, 
@@ -72,6 +73,8 @@ public class TCGConfig
 		
 		///////////////////////////////////////////////////////////////////////////////////////
 		
+		ALLOW_SLIME_SPECIAL = config.getBoolean("Allow Enderium Golem Special", CATEGORY_ABILITY, true, 
+				"Whether the Enderium Golem can teleport");
 		ALLOW_SLIME_SPECIAL = config.getBoolean("Allow Slime Golem Special", CATEGORY_ABILITY, true, 
 				"Whether the Congealed Slime Golem can apply extra knockback when attacking");
 		ALLOW_SEARED_SPECIAL = config.getBoolean("Allow Seared Golem Special", CATEGORY_ABILITY, true, 
@@ -83,7 +86,7 @@ public class TCGConfig
 		
 		TWEAK_SLIME = config.getFloat("Slime Golem Knockback", CATEGORY_TWEAKS, 2.0012F, 0.001F, 10.0F, 
 				"How powerful the Congealed Slime Golem attack is (Higher Value = Further Knockback)");
-		TWEAK_GLUE = config.getFloat("Glue Golem AoE", CATEGORY_TWEAKS, 1.65F, 0.001F, 6.0F, 
+		TWEAK_GLUE = config.getFloat("Glue Golem AoE", CATEGORY_TWEAKS, 1.65F, 0.001F, 8.0F, 
 				"Entities within this distance of the Glue Golem will be slowed down (if enabled)");
 		
 		config.save();
